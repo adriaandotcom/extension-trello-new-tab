@@ -1,0 +1,139 @@
+:root {
+  --background-color-light: #f9f9fb;
+  --background-color-dark: #1c1b22;
+  --background-color-card-light: #ffffff;
+  --background-color-card-dark: #2b2a33;
+  --text-color-light: #5a595e;
+  --text-color-dark: #b3b2b6;
+  --text-color-muted-light: #aaaab1;
+  --text-color-muted-dark: #5a5762;
+  --link-color-light: #1a73e8;
+  --link-color-dark: #1a73e8;
+  --border-color-light: #cccccc;
+  --border-color-dark: #444;
+  --hover-color-light: #f0f0f4;
+  --hover-color-dark: #404c51;
+  --input-background-color-light: #f9f9fb;
+  --input-background-color-dark: #1c1b22;
+  --input-border-color-light: #cccccc;
+  --input-border-color-dark: transparent;
+  --error-color-light: #d71a1a;
+  --error-color-dark: #594242;
+  --error-background-color-light: #ffd8d8;
+  --error-background-color-dark: #ff8d8d;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background-color: var(--background-color-dark);
+    --background-color-card: var(--background-color-card-dark);
+    --text-color: var(--text-color-dark);
+    --text-color-muted: var(--text-color-muted-dark);
+    --link-color: var(--link-color-dark);
+    --border-color: var(--border-color-dark);
+    --hover-color: var(--hover-color-dark);
+    --input-background-color: var(--input-background-color-dark);
+    --input-border-color: var(--input-border-color-dark);
+    --error-color: var(--error-color-dark);
+    --error-background-color: var(--error-background-color-dark);
+  }
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    --background-color: var(--background-color-light);
+    --background-color-card: var(--background-color-card-light);
+    --text-color: var(--text-color-light);
+    --text-color-muted: var(--text-color-muted-light);
+    --link-color: var(--link-color-light);
+    --border-color: var(--border-color-light);
+    --hover-color: var(--hover-color-light);
+    --input-background-color: var(--input-background-color-light);
+    --input-border-color: var(--input-border-color-light);
+    --error-color: var(--error-color-light);
+    --error-background-color: var(--error-background-color-light);
+  }
+}
+
+html,
+body,
+#app {
+  min-height: 100vh;
+}
+
+body {
+  font-family: "Space Grotesk";
+  background-color: var(--background-color);
+  margin: 0;
+  padding: 0;
+  text-align: center;
+}
+
+h1,
+h2,
+p,
+li,
+label,
+a {
+  color: var(--text-color);
+}
+
+a {
+  text-decoration: underline;
+  color: var(--link-color);
+  cursor: pointer;
+}
+
+p,
+li {
+  line-height: 1.8;
+}
+
+p {
+  margin: 1rem 0;
+}
+
+label {
+  margin-top: 1rem;
+  display: block;
+}
+
+main {
+  width: max-content;
+  max-width: calc(100% - 120px);
+}
+
+input {
+  background-color: var(--input-background-color);
+  color: var(--text-color);
+  border: none;
+  appearance: none;
+  border-radius: 4px;
+  padding: 10px;
+  width: 300px;
+  font-size: 16px;
+}
+
+input:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px var(--input-border-color);
+}
+
+p.error {
+  color: var(--error-color);
+  background-color: var(--error-background-color);
+  padding: 7px 13px;
+  border-radius: 4px;
+  margin: 0 auto;
+}
+
+.muted {
+  color: var(--text-color-muted);
+}
+
+.mb-0 {
+  margin-bottom: 0 !important;
+}
+.mt-0 {
+  margin-top: 0 !important;
+}

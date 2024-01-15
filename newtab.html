@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Trello New Tab</title>
+    <link rel="stylesheet" href="css/shared.css" />
+    <link rel="stylesheet" href="css/newtab.css" />
+  </head>
+  <body>
+    <div id="app">
+      <header>
+        <h1 class="clock">
+          <span id="hour">00</span><span class="separator">:</span
+          ><span id="minute">00</span>
+        </h1>
+      </header>
+
+      <!-- <p style="margin-bottom: 0.5rem">lastBoard: {{lastBoard}}</p> -->
+
+      <main ref="main" style="display: none">
+        <form v-if="onboardingStep === 1" @submit.prevent="saveCredentials">
+          <h2>Welcome to Trello New Tab!</h2>
+          <p class="mb-0">
+            This extension will show you a Trello list on every new tab.
+          </p>
+          <p class="mb-0">
+            To get started, please enter your Trello personal key and token:
+          </p>
+
+          <ol class="onboarding mt-0">
+            <li>
+              Go to
+              <a href="https://trello.com/app-key" target="_blank"
+                >trello.com/app-key</a
+              >
+            </li>
+            <li>Copy the Personal Key and paste it below</li>
+            <li>Click the link "Token" (below token)</li>
+            <li>Give permission with your account</li>
+            <li>Copy the token from confirmation page</li>
+          </ol>
+
+          <p v-if="error" class="error">{{ error }}</p>
+
+          <p>
+            <label for="key">Trello Personal Key:</label>
+            <input
+              type="text"
+              id="key"
+              placeholder="Personal Key"
+              v-model="personalKey"
+            />
+          </p>
+          <p>
+            <label for="token">Trello Token:</label>
+            <input
+              type="text"
+              id="token"
+              placeholder="Token"
+              v-model="personalToken"
+            />
+          </p>
+
+          <p>
+            <button type="submit">Save</button>
+          </p>
+
+          <p
+            style="
+              margin-bottom: 0.5rem;
+              margin-top: 1.5rem;
+              font-size: smaller;
+            "
+          >
+            Everything is kept in your browser (we don't store anything).
+          </p>
+        </form>
+        <div v-else-if="onboardingStep === 2">
+          <h2>Select a board</h2>
+          <ul>
+            <li
+              v-for="board in boards"
+              :key="board.id"
+              :class="{ selected: board.id === selectedBoardId }"
+              style="cursor: pointer"
+            >
+              <a @click="selectBoard(board.id)">{{ board.name }}</a>
+            </li>
+          </ul>
+        </div>
+        <div v-else-if="onboardingStep === 3">
+          <h2>Select a list</h2>
+          <ul>
+            <li
+              v-for="list in lists"
+              :key="list.id"
+              :class="{ selected: list.id === selectedListId }"
+            >
+              <a @click="selectList(list.id)">{{ list.name }}</a>
+            </li>
+          </ul>
+        </div>
+        <div v-else>
+          <h2>
+            {{ list.name || "Your list" }}
+            <span class="muted">{{ list.board?.name }}</span>
+          </h2>
+          <ol v-if="myCards.length">
+            <li v-for="card in myCards" :key="card.id" class="card">
+              <a :href="card.url" target="_blank">{{ card.name }}</a>
+            </li>
+          </ol>
+          <p v-else>No cards found.</p>
+        </div>
+
+        <p v-if="loadingWhat && showLoading" class="loading">
+          Loading {{loadingWhat}}...
+        </p>
+      </main>
+
+      <footer>
+        <ul>
+          <li><a @click="reset">reset</a></li>
+          <li><a @click="logout">logout</a></li>
+        </ul>
+      </footer>
+    </div>
+    <script src="libraries/vue-3.4.13.js"></script>
+    <script src="newtab.js"></script>
+  </body>
+</html>
